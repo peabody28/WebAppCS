@@ -28,6 +28,9 @@
         <div class="btn btn-success">
             @Html.ActionLink("Форма RSVP", "RsvpForm")
         </div>
+        <br />
+        <!-- Создаю ссылку в другой контроллер. Для этого третьим аргументом передаю имя контроллера-->
+        @Html.ActionLink("Описание", "Index", "Title")
     </div>
 </body>
 </html>
