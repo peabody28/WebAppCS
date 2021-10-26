@@ -18,40 +18,35 @@ namespace Web.Controllers
             _logger = logger;
         }
 
+        // ASP.NET парсит URL и выбирает контроллер для обработки запроса - этот метод обрабатывает /, /Home, /Home/Index
         public IActionResult Index()
         {
-            // через ViewBag можно передать данные в представление 
-            ViewBag.MyProp = "Hello, World!";
             // выбор отображаемого представления ( без параметров = по умолчанию, то есть ищется на основе имени файла)
             return View();
         }
 
-        // Методы обработки ответов формы
+        // Метод отрисовки формы (GET-запрос)
         [HttpGet]
         public ViewResult RsvpForm()
         {
             return View();
         }
 
+        // Обработка отправки формы (POST-запрос)
         [HttpPost]
         public ViewResult RsvpForm(GuestResponse guest)
         {
-            // Нужно отправить данные нового гостя no электронной почте 
-            // организатору вечеринки.
-
-            // тут я передаю обьект guest, чтоб использовать его в представлении,
-            // также я мог продублировать данные в ViewBag
+            // В модели RsvpForm есть атрибуты блокирующие неверный ввод
+            // В следующем условии я проверяю валидна ли модель, отправленная пользователем
             if (ModelState.IsValid)
+            {
+                // запись нового посетителя в базу
+                // some code
+                // Отрисовка результата голосования (представление Thanks)
                 return View("Thanks", guest);
+            }
             else
-                return View();
+                return View();  // отрислвываю форму + указываю на ошибки
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        
     }
 }
